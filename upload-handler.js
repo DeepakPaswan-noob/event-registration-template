@@ -91,6 +91,16 @@ class GitHubPagesFileHandler {
         // Save back to localStorage
         localStorage.setItem('githubPagesFiles', JSON.stringify(existingFiles));
         
+        // Also save a simple reference for form access
+        const fileReferences = JSON.parse(localStorage.getItem('rizoraFileReferences') || '{}');
+        fileReferences[fileMetadata.fileName] = {
+            originalName: fileMetadata.originalName,
+            category: fileMetadata.category,
+            uploadTime: fileMetadata.uploadTime,
+            size: fileMetadata.size
+        };
+        localStorage.setItem('rizoraFileReferences', JSON.stringify(fileReferences));
+        
         console.log('File saved locally:', fileMetadata.fileName);
     }
 

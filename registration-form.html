@@ -237,6 +237,10 @@
 
         <div class="success-message" id="successMessage">
             Registration submitted successfully! Files uploaded to GitHub Pages storage.
+            <br><br>
+            <div id="redirectMessage" style="font-size: 0.9em; opacity: 0.8;">
+                Redirecting to main page in <span id="countdown">3</span> seconds...
+            </div>
         </div>
 
         <!-- Load the file handler -->
@@ -551,6 +555,56 @@
             return isValid;
         }
 
+        // Google Sheets Integration
+        async function sendToGoogleSheets(data) {
+            // Google Apps Script Web App URL (you need to create this)
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+            
+            // Prepare data for Google Sheets
+            const sheetData = {
+                timestamp: new Date().toLocaleString('en-IN', {timeZone: 'Asia/Kolkata'}),
+                email: data.email || '',
+                participantName: data.participantName || '',
+                collegeName: data.collegeName || '',
+                departmentName: data.departmentName || '',
+                contactNumber: data.contactNumber || '',
+                studentEmail: data.studentEmail || '',
+                eventType: data.eventType || '',
+                onStageType: data.onStageType || '',
+                offStageType: data.offStageType || '',
+                offStageEvent: data.offStageEvent || '',
+                eventParticipantName: data.eventParticipantName || '',
+                eventContactNumber: data.eventContactNumber || '',
+                gpayReference: data.gpayReference || '',
+                studentIdFileName: data.studentIdFileName || '',
+                paymentFileName: data.paymentFileName || '',
+                submissionTime: data.submissionTime || ''
+            };
+
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(sheetData)
+                });
+
+                console.log('Data sent to Google Sheets');
+                return true;
+            } catch (error) {
+                console.error('Google Sheets error:', error);
+                
+                // Fallback: Store in localStorage for manual export
+                const existingSubmissions = JSON.parse(localStorage.getItem('rizoraSubmissions') || '[]');
+                existingSubmissions.push(sheetData);
+                localStorage.setItem('rizoraSubmissions', JSON.stringify(existingSubmissions));
+                
+                throw error;
+            }
+        }
+
         // Form submission
         document.getElementById('registrationForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -564,7 +618,7 @@
                 submitBtn.textContent = 'Submitting...';
                 
                 // Simulate form submission (replace with actual form submission logic)
-                setTimeout(() => {
+                setTimeout(async () => {
                     successMessage.style.display = 'block';
                     
                     // Collect form data
@@ -575,17 +629,50 @@
                         registrationData[key] = value;
                     }
                     
+                    // Add uploaded file information
+                    const studentIdFile = document.getElementById('studentIdPhoto');
+                    const paymentFile = document.getElementById('paymentProof');
+                    
+                    registrationData.studentIdFileName = studentIdFile.dataset.uploadedFile || 'Not uploaded';
+                    registrationData.paymentFileName = paymentFile.dataset.uploadedFile || 'Not uploaded';
+                    registrationData.submissionTime = new Date().toISOString();
+                    
                     // Store registration data in localStorage
                     localStorage.setItem('rizoraRegistration', JSON.stringify(registrationData));
                     
+                    // Send to Google Sheets
+                    try {
+                        await sendToGoogleSheets(registrationData);
+                        console.log('Data sent to Google Sheets successfully');
+                    } catch (error) {
+                        console.error('Failed to send to Google Sheets:', error);
+                        // Continue even if Google Sheets fails
+                    }
+                    
                     // Show success message
-                    alert('Registration submitted successfully! Thank you for registering for RIZORA 2025.');
+                    alert('Registration submitted successfully! Thank you for registering for RIZORA 2025. You will be redirected to the main page.');
                     
                     // Reset form
                     this.reset();
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Submit Registration';
-                    successMessage.style.display = 'none';
+                    
+                    // Start countdown and redirect
+                    let countdown = 3;
+                    const countdownElement = document.getElementById('countdown');
+                    const redirectMessage = document.getElementById('redirectMessage');
+                    
+                    const countdownTimer = setInterval(() => {
+                        countdown--;
+                        if (countdownElement) {
+                            countdownElement.textContent = countdown;
+                        }
+                        
+                        if (countdown <= 0) {
+                            clearInterval(countdownTimer);
+                            window.location.href = 'index.html';
+                        }
+                    }, 1000);
                     
                 }, 1000);
             }
@@ -669,13 +756,13 @@
         
         // Function to download stored files (for demonstration)
         function downloadStoredFile(fileName) {
-            const files = JSON.parse(localStorage.getItem('rizoraUploadedFiles') || '[]');
-            const file = files.find(f => f.name === fileName);
+            const files = JSON.parse(localStorage.getItem('githubPagesFiles') || '[]');
+            const file = files.find(f => f.fileName === fileName);
             
             if (file) {
                 const link = document.createElement('a');
                 link.href = file.data;
-                link.download = file.name;
+                link.download = file.originalName;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
