@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIZORA 2025 - Debug Storage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #1a1a1a;
+            color: white;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1 { color: #FFD700; }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #333;
+            border-radius: 8px;
+        }
+        .section h3 { color: #FFD700; margin-bottom: 10px; }
+        pre {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        button {
+            background: #FFD700;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #FFA500; }
+        .file-preview {
+            max-width: 200px;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 RIZORA 2025 - Storage Debug</h1>
+        
+        <button onclick="refreshData()">🔄 Refresh Data</button>
+        <button onclick="clearAllData()">🗑️ Clear All Data</button>
+        <button onclick="testFileUpload()">📁 Test File Upload</button>
+        
+        <div class="section">
+            <h3>📁 GitHub Pages Files</h3>
+            <div id="githubPagesFiles">Loading...</div>
+        </div>
+        
+        <div class="section">
+            <h3>📋 Registration Data</h3>
+            <div id="registrationData">Loading...</div>
+        </div>
+        
+        <div class="section">
+            <h3>📊 Submissions</h3>
+            <div id="submissionsData">Loading...</div>
+        </div>
+        
+        <div class="section">
+            <h3>🔗 File References</h3>
+            <div id="fileReferences">Loading...</div>
+        </div>
+        
+        <div class="section">
+            <h3>📦 All localStorage Keys</h3>
+            <div id="allKeys">Loading...</div>
+        </div>
+    </div>
+
+    <script>
+        function refreshData() {
+            // GitHub Pages Files
+            const githubFiles = localStorage.getItem('githubPagesFiles');
+            document.getElementById('githubPagesFiles').innerHTML = githubFiles ? 
+                `<pre>${JSON.stringify(JSON.parse(githubFiles), null, 2)}</pre>` : 
+                '<p>No data found</p>';
+            
+            // Registration Data
+            const regData = localStorage.getItem('rizoraRegistration');
+            document.getElementById('registrationData').innerHTML = regData ? 
+                `<pre>${JSON.stringify(JSON.parse(regData), null, 2)}</pre>` : 
+                '<p>No data found</p>';
+            
+            // Submissions
+            const submissions = localStorage.getItem('rizoraSubmissions');
+            document.getElementById('submissionsData').innerHTML = submissions ? 
+                `<pre>${JSON.stringify(JSON.parse(submissions), null, 2)}</pre>` : 
+                '<p>No data found</p>';
+            
+            // File References
+            const fileRefs = localStorage.getItem('rizoraFileReferences');
+            document.getElementById('fileReferences').innerHTML = fileRefs ? 
+                `<pre>${JSON.stringify(JSON.parse(fileRefs), null, 2)}</pre>` : 
+                '<p>No data found</p>';
+            
+            // All Keys
+            const keys = Object.keys(localStorage);
+            document.getElementById('allKeys').innerHTML = keys.length > 0 ? 
+                `<pre>${JSON.stringify(keys, null, 2)}</pre>` : 
+                '<p>No localStorage keys found</p>';
+            
+            // Show file previews if available
+            if (githubFiles) {
+                const files = JSON.parse(githubFiles);
+                files.forEach((file, index) => {
+                    if (file.data && file.type && file.type.startsWith('image/')) {
+                        const preview = document.createElement('div');
+                        preview.innerHTML = `
+                            <h4>File ${index + 1}: ${file.originalName}</h4>
+                            <img src="${file.data}" class="file-preview" alt="${file.originalName}">
+                            <p>Size: ${(file.size / 1024).toFixed(2)} KB</p>
+                            <p>Category: ${file.category}</p>
+                        `;
+                        document.getElementById('githubPagesFiles').appendChild(preview);
+                    }
+                });
+            }
+        }
+        
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all stored data?')) {
+                localStorage.clear();
+                refreshData();
+                alert('All data cleared!');
+            }
+        }
+        
+        function testFileUpload() {
+            // Create a test file upload
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            
+            input.onchange = async function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    // Load the upload handler
+                    if (typeof GitHubPagesFileHandler === 'undefined') {
+                        alert('Upload handler not loaded. Please go back to the registration form to test uploads.');
+                        return;
+                    }
+                    
+                    const handler = new GitHubPagesFileHandler();
+                    const result = await handler.handleFileUpload(file, 'test');
+                    
+                    if (result.success) {
+                        alert('Test upload successful!');
+                        refreshData();
+                    } else {
+                        alert('Test upload failed: ' + result.error);
+                    }
+                }
+            };
+            
+            input.click();
+        }
+        
+        // Load data on page load
+        window.onload = refreshData;
+    </script>
+</body>
+</html>
