@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rizora A.M. Jain 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gap-logo-tagline: 0.3rem;
+      --gap-tagline-fest: 0.2rem;
+      --gap-fest-amj: 0.3rem;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('background.JPG') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.65);
+      min-height: 100vh;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    header { text-align: center; margin-bottom: 1rem; }
+    .college-logos {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .college-logos img { max-height: 80px; }
+    header img.event-logo {
+      max-width: 260px;
+      margin: 0 auto var(--gap-logo-tagline) auto;
+      display: block;
+    }
+    .tagline {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #ffcc00;
+      margin: var(--gap-logo-tagline) 0 var(--gap-tagline-fest) 0;
+    }
+    header h2.fest-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0 0 var(--gap-fest-amj) 0;
+      color: #ffcc00;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .links a {
+      background-color: #ffcc00;
+      color: #000;
+      padding: 1rem;
+      text-align: center;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.05rem;
+      transition: transform 0.2s ease, background-color 0.3s;
+    }
+    .links a:hover { background-color: #ffd633; transform: scale(1.03); }
+    .contact-section h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      color: #ffcc00;
+    }
+    .contact-card {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid #ffcc00;
+      border-radius: 8px;
+    }
+    .contact-card h3 { margin: 0; font-size: 1rem; }
+    .contact-card p { margin: 3px 0; color: #eee; font-size: 0.95rem; }
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+    @media (min-width: 768px) {
+      header h1 { font-size: 2.5rem; }
+      .links a { font-size: 1.1rem; }
+      .contact-card p { font-size: 1rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="overlay">
+    <header>
+      <div class="college-logos">
+        <img src="AMJ-college-logo-White-150x150.png" alt="A.M. Jain College Shield Logo">
+        <img src="Asset-50-1.png" alt="A.M. Jain College Text Logo">
+      </div>
+      <img src="logo.png" alt="Rizora Logo" class="event-logo">
+      <p class="tagline">Rise Beyond Limits, Sustain the Future</p>
+      <h2 class="fest-title">Inter College Fest 2025</h2>
+      <h1>A.M. Jain 2025</h1>
+    </header>
+
+    <div class="container">
+      <div class="links">
+        <a href="rulebook.pdf" target="_blank">📘 View Rule Book</a>
+        <!-- Updated link to new Google Form + Payment flow -->
+        <a href="register.html" target="_blank">📝 Register Now</a>
+        <a href="schedule.html" target="_blank">📅 View Event Schedule</a>
+      </div>
+
+      <div class="contact-section">
+        <h2>📞 Contact Event Coordinators</h2>
+        <div class="contact-card">
+          <h3>Deepak Sharma</h3>
+          <p>📱 +91 98765 43210</p>
+          <p>✉ deepak.event@gmail.com</p>
+        </div>
+        <div class="contact-card">
+          <h3>Anjali Mehta</h3>
+          <p>📱 +91 91234 56789</p>
+          <p>✉ anjali.mehta@college.edu</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      © 2025 RIZORA Fest. All rights reserved.
+    </footer>
+  </div>
+
+</body>
+</html>

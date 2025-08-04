@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Rizora 2025 Payment</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body { background: #111; color: white; font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+.container { max-width: 500px; margin: auto; }
+input, button { padding: 10px; margin: 10px; font-size: 16px; border-radius: 5px; border: none; }
+input { width: 80%; }
+button { background: yellow; color: black; font-weight: bold; cursor: pointer; }
+.qr { margin: 20px 0; }
+.status { font-weight: bold; margin-top: 15px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Rizora 2025 Payment</h2>
+    <p>Fee: ₹50 per participant</p>
+
+    <label>Number of Team Members:</label>
+    <input type="number" id="members" min="1" max="5" required><br>
+    <h3>Total: ₹<span id="total">0</span></h3>
+
+    <div class="qr">
+        <img src="YOUR_QR_IMAGE_URL" alt="UPI QR Code" width="250">
+        <p>UPI ID: <b>deepak88975@ybl</b></p>
+    </div>
+
+    <input type="text" id="upiRef" placeholder="Enter UPI Transaction ID"><br>
+    <input type="text" id="name" placeholder="Your Name"><br>
+    <input type="text" id="dept" placeholder="Department"><br>
+    <input type="text" id="event" placeholder="Event Name"><br>
+
+    <button onclick="verifyPayment()">Verify Payment</button>
+    <p class="status" id="status"></p>
+</div>
+
+<script>
+document.getElementById('members').addEventListener('input', function() {
+    let count = parseInt(this.value) || 0;
+    document.getElementById('total').textContent = count * 50;
+});
+
+function verifyPayment() {
+    let members = parseInt(document.getElementById('members').value);
+    let amount = members * 50 * 100; // in paise
+    let upiRef = document.getElementById('upiRef').value.trim();
+    let name = document.getElementById('name').value.trim();
+    let dept = document.getElementById('dept').value.trim();
+    let event = document.getElementById('event').value.trim();
+
+    if (!upiRef || !name || !dept || !event || !members) {
+        document.getElementById('status').innerHTML = "⚠ Please fill all details.";
+        return;
+    }
+
+    document.getElementById('status').innerHTML = "⏳ Verifying payment...";
+
+    fetch("https://script.google.com/macros/s/AKfycby-TdtxI9-YQ9mi3w4ZS38HxxqXfYM-LaSSq-9d4xd3u0S0dxhUGaP-nA49e36R2le2MA/exec", {
+        method: "POST",
+        body: JSON.stringify({
+            upi_reference: upiRef,
+            amount: amount,
+            name: name,
+            department: dept,
+            event: event,
+            members: members
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('status').innerHTML = "✅ Payment Verified & Registration Successful!";
+        } else {
+            document.getElementById('status').innerHTML = "❌ Payment Not Found or Amount Mismatch.";
+        }
+    })
+    .catch(() => {
+        document.getElementById('status').innerHTML = "⚠ Error verifying payment. Try again.";
+    });
+}
+</script>
+
+</body>
+</html>

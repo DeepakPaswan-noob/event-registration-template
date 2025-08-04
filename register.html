@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rizora 2025 Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: Arial, sans-serif; background: #111; color: white; text-align: center; margin: 0; padding: 0; }
+    #ff-compose { width: 100%; height: 100vh; }
+  </style>
+</head>
+<body>
+
+<h2>Rizora 2025 Registration Form</h2>
+<p>Fill out the form below to register for Rizora 2025.</p>
+
+<div id="ff-compose"></div>
+<script async defer src="https://formfacade.com/include/108616061513378229019/form/1FAIpQLSfdceCaIUmZcJRxtTWQ4MFHqJwTtgLwdIzWoyX7y6BZ3BZnlg/classic.js?div=ff-compose"></script>
+
+<script>
+// Poll the iframe contents for success message and redirect
+function tryRedirect() {
+  const iframe = document.querySelector("#ff-compose iframe");
+  if (!iframe) return;
+
+  try {
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    if (doc.body.innerText.includes("Registration successful! Please proceed to payment")) {
+      window.location.href = "payment.html"; // or your dynamic URL
+    }
+  } catch(e) {
+    // cross-origin, ignore
+  }
+}
+
+// Check every 1 second
+setInterval(tryRedirect, 1000);
+</script>
+
+</body>
+</html>

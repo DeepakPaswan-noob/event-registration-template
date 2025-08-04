@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rizora 2025 - Event Registration Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #111, #333);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header img {
+            width: 120px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            color: #FFD700;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #ccc;
+        }
+
+        .form-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            border-left: 4px solid #FFD700;
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            color: #FFD700;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .required {
+            color: #ff4444;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #FFD700;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .radio-item, .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+
+        .radio-item:hover, .checkbox-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        input[type="radio"], input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        input[type="file"] {
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+        }
+
+        input[type="file"]:hover {
+            border-color: #FFD700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .file-info {
+            font-size: 12px;
+            color: #ccc;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .submit-section {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #000;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            color: #ff4444;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4CAF50;
+            color: #4CAF50;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="logo.png" alt="Rizora 2025 Logo">
+            <h1>RIZORA</h1>
+            <p><strong>EVENT DATE: 25th SEPTEMBER 2025</strong></p>
+            <p>@Agurchand Manmull Jain College, Meenambakkam, Chennai – 600 061</p>
+            <p style="margin-top: 15px; font-size: 1em;">
+                <strong>ON STAGE EVENT:</strong> INDOOR STADIUM<br>
+                <strong>OFF STAGE EVENT:</strong> GYAN BHAWAN
+            </p>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            Registration submitted successfully! Files uploaded to GitHub Pages storage.
+        </div>
+
+        <!-- Load the file handler -->
+        <script src="upload-handler.js"></script>
+
+        <form id="registrationForm">
+            <!-- Basic Information Section -->
+            <div class="form-section">
+                <h2 class="section-title">Participant Information</h2>
+                
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="error-message" id="emailError">Please enter a valid email address</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="participantName">NAME OF THE PARTICIPANT <span class="required">*</span></label>
+                    <input type="text" id="participantName" name="participantName" required>
+                    <div class="error-message" id="participantNameError">Please enter participant name</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="collegeName">COLLEGE NAME <span class="required">*</span></label>
+                    <input type="text" id="collegeName" name="collegeName" required>
+                    <div class="error-message" id="collegeNameError">Please enter college name</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="departmentName">DEPARTMENT NAME <span class="required">*</span></label>
+                    <input type="text" id="departmentName" name="departmentName" required>
+                    <div class="error-message" id="departmentNameError">Please enter department name</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="contactNumber">CONTACT NUMBER <span class="required">*</span></label>
+                    <input type="tel" id="contactNumber" name="contactNumber" required>
+                    <div class="error-message" id="contactNumberError">Please enter contact number</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="studentEmail">STUDENT MAIL ID <span class="required">*</span></label>
+                    <input type="email" id="studentEmail" name="studentEmail" required>
+                    <div class="error-message" id="studentEmailError">Please enter student email</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="studentIdPhoto">STUDENT ID CARD PHOTO <span class="required">*</span></label>
+                    <p style="color: #ccc; font-size: 14px; margin-bottom: 10px;">NOTE: Photo must be in JPG format</p>
+                    <p style="color: #FFD700; font-size: 12px; margin-bottom: 8px;">
+                        📁 <strong>File Storage:</strong> Files will be stored using GitHub Pages + Git LFS (1GB FREE). 
+                        <br>Secure, version-controlled storage with free hosting.
+                    </p>
+                    <input type="file" id="studentIdPhoto" name="studentIdPhoto" accept=".jpg,.jpeg" required>
+                    <div class="error-message" id="studentIdPhotoError">Please upload student ID card photo</div>
+                    <div id="studentIdUploadStatus" class="file-info"></div>
+                </div>
+            </div>
+
+            <!-- Event Selection Section -->
+            <div class="form-section">
+                <h2 class="section-title">Event Selection</h2>
+                
+                <div class="form-group">
+                    <label>EVENTS: SELECT ANY ONE OF THE STAGE EVENTS <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="onStage" name="eventType" value="on-stage" required>
+                            <label for="onStage">ON STAGE</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="offStage" name="eventType" value="off-stage" required>
+                            <label for="offStage">OFF STAGE</label>
+                        </div>
+                    </div>
+                    <div class="error-message" id="eventTypeError">Please select event type</div>
+                </div>
+
+                <!-- On Stage Events Section -->
+                <div class="form-group" id="onStageSection" style="display: none;">
+                    <h3 style="color: #FFD700; margin-bottom: 15px;">ON STAGE EVENTS</h3>
+                    <p style="color: #ccc; font-size: 14px; margin-bottom: 15px;">EXAMPLE: ON STAGE - SOLO (OR) GROUP</p>
+                    
+                    <label>ON STAGE:</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="onStageSolo" name="onStageType" value="solo">
+                            <label for="onStageSolo">SOLO</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="onStageGroup" name="onStageType" value="group">
+                            <label for="onStageGroup">GROUP</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Off Stage Events Section -->
+                <div class="form-group" id="offStageSection" style="display: none;">
+                    <h3 style="color: #FFD700; margin-bottom: 15px;">OFF STAGE EVENTS</h3>
+                    <p style="color: #ccc; font-size: 14px; margin-bottom: 15px;">EXAMPLE: OFF STAGE - SOLO (OR) GROUP</p>
+                    
+                    <label>OFF STAGE EVENTS:</label>
+                    <div class="radio-group">
+                        <div class="radio-item">
+                            <input type="radio" id="offStageSolo" name="offStageType" value="solo">
+                            <label for="offStageSolo">SOLO</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" id="offStageGroup" name="offStageType" value="group">
+                            <label for="offStageGroup">GROUP</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Off Stage Solo Events -->
+                <div class="form-group" id="offStageSoloEvents" style="display: none;">
+                    <h3 style="color: #FFD700; margin-bottom: 15px;">OFF STAGE: SOLO EVENTS</h3>
+                    
+                    <label for="offStageEvent">OFF STAGE EVENTS <span class="required">*</span></label>
+                    <select id="offStageEvent" name="offStageEvent">
+                        <option value="">Select Event</option>
+                        <option value="frame-it-right">FRAME IT RIGHT (PHOTOGRAPHY)</option>
+                        <option value="other-event-1">Other Event 1</option>
+                        <option value="other-event-2">Other Event 2</option>
+                    </select>
+                    
+                    <div style="margin-top: 20px;">
+                        <div class="form-group">
+                            <label for="eventParticipantName">PARTICIPANT NAME <span class="required">*</span></label>
+                            <input type="text" id="eventParticipantName" name="eventParticipantName">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventContactNumber">CONTACT NUMBER <span class="required">*</span></label>
+                            <input type="tel" id="eventContactNumber" name="eventContactNumber">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="gpayReference">GPAY REFERENCE NUMBER</label>
+                            <input type="text" id="gpayReference" name="gpayReference">
+                            <p style="color: #ccc; font-size: 14px; margin-top: 5px;">
+                                IF REGISTRATION QUERIES CONTACT THIS NUMBER: <strong>9884882865</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Details Section -->
+            <div class="form-section">
+                <h2 class="section-title">Payment Details</h2>
+                
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <h3 style="color: #FFD700; margin-bottom: 10px;">NOTE:</h3>
+                    <p style="line-height: 1.6; color: #ccc;">
+                        If a person is willing to participate in the event, they must pay a fee of <strong>₹50</strong>. 
+                        In the case of a group performance, the total fee will be <strong>₹50 per member</strong>. 
+                        For example, if there are 8 members in a group, the total payment will be ₹50 × 8 = ₹400. 
+                        The payment for group performances should be made by a single person, and the payment screenshot 
+                        must be submitted in the form without fail.<br><br>
+                        If a person has already paid for one event, they are allowed to participate in other events as well. 
+                        In such cases, they can upload the same payment details in the form for the additional events.
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="paymentProof">UPLOAD YOUR PAYMENT DETAILS <span class="required">*</span></label>
+                    <p style="color: #FFD700; font-weight: bold; margin-bottom: 10px;">PER PERSON ₹50</p>
+                    <p style="color: #ccc; font-size: 14px; margin-bottom: 10px;">
+                        NOTE: Photo must be in JPG format<br>
+                        The person who is paying either group (or) solo events the name should be mentioned along with transaction id
+                    </p>
+                    <p style="color: #FFD700; font-size: 12px; margin-bottom: 8px;">
+                        📁 <strong>File Storage:</strong> Payment screenshots stored using GitHub Pages + Git LFS. 
+                        <br>Secure, version-controlled storage with 1GB FREE allowance.
+                    </p>
+                    <input type="file" id="paymentProof" name="paymentProof" accept=".jpg,.jpeg,.png,.pdf" required>
+                    <div class="error-message" id="paymentProofError">Please upload payment proof</div>
+                    <div id="paymentUploadStatus" class="file-info"></div>
+                </div>
+            </div>
+
+            <div class="submit-section">
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Submit Registration
+                </button>
+                <p style="margin-top: 15px; color: #ccc; font-size: 14px;">
+                    Registration fee: ₹50 per participant<br>
+                    For registration queries contact: <strong>9884882865</strong>
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Initialize file handler
+        const fileHandler = new GitHubPagesFileHandler();
+        
+        // Show/hide event sections based on selection
+        document.querySelectorAll('input[name="eventType"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const onStageSection = document.getElementById('onStageSection');
+                const offStageSection = document.getElementById('offStageSection');
+                const offStageSoloEvents = document.getElementById('offStageSoloEvents');
+                
+                if (this.value === 'on-stage') {
+                    onStageSection.style.display = 'block';
+                    offStageSection.style.display = 'none';
+                    offStageSoloEvents.style.display = 'none';
+                } else if (this.value === 'off-stage') {
+                    onStageSection.style.display = 'none';
+                    offStageSection.style.display = 'block';
+                    offStageSoloEvents.style.display = 'none';
+                }
+            });
+        });
+
+        // Show off stage solo events when solo is selected
+        document.querySelectorAll('input[name="offStageType"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const offStageSoloEvents = document.getElementById('offStageSoloEvents');
+                
+                if (this.value === 'solo') {
+                    offStageSoloEvents.style.display = 'block';
+                    document.getElementById('offStageEvent').required = true;
+                    document.getElementById('eventParticipantName').required = true;
+                    document.getElementById('eventContactNumber').required = true;
+                } else {
+                    offStageSoloEvents.style.display = 'none';
+                    document.getElementById('offStageEvent').required = false;
+                    document.getElementById('eventParticipantName').required = false;
+                    document.getElementById('eventContactNumber').required = false;
+                }
+            });
+        });
+
+        // Form validation
+        function validateForm() {
+            let isValid = true;
+            const requiredFields = ['email', 'participantName', 'collegeName', 'departmentName', 'contactNumber', 'studentEmail'];
+            
+            // Check required text fields
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field);
+                const errorElement = document.getElementById(field + 'Error');
+                
+                if (!element.value.trim()) {
+                    if (errorElement) {
+                        errorElement.style.display = 'block';
+                    }
+                    isValid = false;
+                } else {
+                    if (errorElement) {
+                        errorElement.style.display = 'none';
+                    }
+                }
+            });
+
+            // Check email format
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (email.value && !emailRegex.test(email.value)) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.style.display = 'block';
+                isValid = false;
+            }
+
+            // Check student email format
+            const studentEmail = document.getElementById('studentEmail');
+            const studentEmailError = document.getElementById('studentEmailError');
+            
+            if (studentEmail.value && !emailRegex.test(studentEmail.value)) {
+                studentEmailError.textContent = 'Please enter a valid student email address';
+                studentEmailError.style.display = 'block';
+                isValid = false;
+            }
+
+            // Check event type selection
+            const eventType = document.querySelector('input[name="eventType"]:checked');
+            const eventTypeError = document.getElementById('eventTypeError');
+            
+            if (!eventType) {
+                eventTypeError.style.display = 'block';
+                isValid = false;
+            } else {
+                eventTypeError.style.display = 'none';
+            }
+
+            // Check file uploads
+            const studentIdPhoto = document.getElementById('studentIdPhoto');
+            const studentIdPhotoError = document.getElementById('studentIdPhotoError');
+            
+            if (!studentIdPhoto.files.length) {
+                studentIdPhotoError.style.display = 'block';
+                isValid = false;
+            } else {
+                studentIdPhotoError.style.display = 'none';
+            }
+
+            const paymentProof = document.getElementById('paymentProof');
+            const paymentProofError = document.getElementById('paymentProofError');
+            
+            if (!paymentProof.files.length) {
+                paymentProofError.style.display = 'block';
+                isValid = false;
+            } else {
+                paymentProofError.style.display = 'none';
+            }
+
+            return isValid;
+        }
+
+        // Form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validateForm()) {
+                const submitBtn = document.getElementById('submitBtn');
+                const successMessage = document.getElementById('successMessage');
+                
+                // Disable submit button and show loading state
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+                
+                // Simulate form submission (replace with actual form submission logic)
+                setTimeout(() => {
+                    successMessage.style.display = 'block';
+                    
+                    // Collect form data
+                    const formData = new FormData(this);
+                    const registrationData = {};
+                    
+                    for (let [key, value] of formData.entries()) {
+                        registrationData[key] = value;
+                    }
+                    
+                    // Store registration data in localStorage
+                    localStorage.setItem('rizoraRegistration', JSON.stringify(registrationData));
+                    
+                    // Show success message
+                    alert('Registration submitted successfully! Thank you for registering for RIZORA 2025.');
+                    
+                    // Reset form
+                    this.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Registration';
+                    successMessage.style.display = 'none';
+                    
+                }, 1000);
+            }
+        });
+
+        // Real-time validation
+        document.querySelectorAll('input, select, textarea').forEach(element => {
+            element.addEventListener('blur', function() {
+                // Only validate this specific field
+                const errorElement = document.getElementById(this.id + 'Error');
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    if (errorElement) {
+                        errorElement.style.display = 'block';
+                    }
+                } else {
+                    if (errorElement) {
+                        errorElement.style.display = 'none';
+                    }
+                }
+            });
+        });
+
+        // File input styling and handling with GitHub Pages integration
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.addEventListener('change', async function() {
+                if (this.files.length > 0) {
+                    const file = this.files[0];
+                    const fileName = file.name;
+                    const fileSize = (file.size / 1024 / 1024).toFixed(2); // Size in MB
+                    const label = this.parentNode.querySelector('label');
+                    const statusElement = this.parentNode.querySelector('.file-info');
+                    
+                    // Show uploading status
+                    if (statusElement) {
+                        statusElement.innerHTML = '🔄 Uploading to GitHub Pages...';
+                        statusElement.style.color = '#FFD700';
+                    }
+                    
+                    // Determine category
+                    const category = this.name === 'studentIdPhoto' ? 'student-ids' : 'payment-proofs';
+                    
+                    try {
+                        // Upload file using GitHub Pages handler
+                        const result = await fileHandler.handleFileUpload(file, category);
+                        
+                        if (result.success) {
+                            // Show success status
+                            if (label) {
+                                const originalText = label.textContent.split('\n')[0];
+                                label.innerHTML = originalText + '<br><small style="color: #4CAF50;">✓ ' + fileName + ' (' + fileSize + ' MB)</small>';
+                            }
+                            
+                            if (statusElement) {
+                                statusElement.innerHTML = '✅ Successfully uploaded to GitHub Pages storage';
+                                statusElement.style.color = '#4CAF50';
+                            }
+                            
+                            // Store file reference for form submission
+                            this.dataset.uploadedFile = result.fileName;
+                            this.dataset.uploadUrl = result.url;
+                            
+                            console.log('File uploaded successfully:', result);
+                        } else {
+                            throw new Error(result.error);
+                        }
+                        
+                    } catch (error) {
+                        console.error('Upload failed:', error);
+                        
+                        if (statusElement) {
+                            statusElement.innerHTML = '❌ Upload failed: ' + error.message;
+                            statusElement.style.color = '#ff4444';
+                        }
+                        
+                        // Clear the file input
+                        this.value = '';
+                    }
+                }
+            });
+        });
+        
+        // Function to download stored files (for demonstration)
+        function downloadStoredFile(fileName) {
+            const files = JSON.parse(localStorage.getItem('rizoraUploadedFiles') || '[]');
+            const file = files.find(f => f.name === fileName);
+            
+            if (file) {
+                const link = document.createElement('a');
+                link.href = file.data;
+                link.download = file.name;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+    </script>
+</body>
+</html>
