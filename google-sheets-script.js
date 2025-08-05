@@ -1,4 +1,4 @@
-// Google Apps Script for RIZORA 2025 Registration Form
+// Google Apps Script for Event Registration Form 2025
 // Deploy this as a Web App to receive form submissions
 
 function doPost(e) {
@@ -82,6 +82,6 @@ function doPost(e) {
 
 function doGet(e) {
   return ContentService
-    .createTextOutput(JSON.stringify({status: 'RIZORA 2025 Registration API is running'}))
+    .createTextOutput(JSON.stringify({status: 'Event Registration 2025 API is running'}))
     .setMimeType(ContentService.MimeType.JSON);
 }

@@ -1,9 +1,9 @@
-# RIZORA 2025 Registration - Google Sheets Setup Instructions
+# Event Registration 2025 - Google Sheets Setup Instructions
 
 ## Step 1: Create Google Sheet
 1. Go to https://sheets.google.com
 2. Create a new sheet
-3. Name it "RIZORA 2025 Registrations"
+3. Name it "Event Registration 2025"
 4. Copy the Sheet ID from the URL (long string between `/d/` and `/edit`)
 
 ## Step 2: Setup Google Apps Script
@@ -12,12 +12,12 @@
 3. Delete the default code
 4. Copy and paste the code from `google-sheets-script.js`
 5. Replace `YOUR_GOOGLE_SHEET_ID_HERE` with your actual sheet ID
-6. Save the project (name it "RIZORA Registration API")
+6. Save the project (name it "Event Registration API")
 
 ## Step 3: Deploy as Web App
 1. Click "Deploy" → "New Deployment"
 2. Choose type: "Web app"
-3. Description: "RIZORA 2025 Registration API"
+3. Description: "Event Registration 2025 API"
 4. Execute as: "Me"
 5. Who has access: "Anyone"
 6. Click "Deploy"

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RIZORA 2025 - File Manager</title>
+    <title>Event Registration 2025 - File Manager</title>
     <style>
         * {
             margin: 0;
@@ -222,7 +222,7 @@
     
     <div class="container">
         <div class="header">
-            <h1>📁 RIZORA 2025 File Manager</h1>
+            <h1>📁 Event Registration 2025 File Manager</h1>
             <p>Uploaded Registration Files</p>
         </div>
 
@@ -427,7 +427,7 @@ Upload Time: ${new Date(file.uploadTime).toLocaleString()}
             const url = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = `rizora-2025-registrations-${new Date().toISOString().split('T')[0]}.csv`;
+            link.download = `event-registrations-${new Date().toISOString().split('T')[0]}.csv`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -446,7 +446,7 @@ Upload Time: ${new Date(file.uploadTime).toLocaleString()}
             newWindow.document.write(`
                 <html>
                     <head>
-                        <title>RIZORA 2025 - Registration Data</title>
+                        <title>Event Registration 2025 - Registration Data</title>
                         <style>
                             body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
                             table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
@@ -457,7 +457,7 @@ Upload Time: ${new Date(file.uploadTime).toLocaleString()}
                         </style>
                     </head>
                     <body>
-                        <h1>RIZORA 2025 Registration Data</h1>
+                        <h1>Event Registration 2025 Registration Data</h1>
                         <table>
                             <tr>
                                 ${Object.keys(registrations[0]).map(key => `<th>${key}</th>`).join('')}
